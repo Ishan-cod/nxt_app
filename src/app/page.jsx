@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Settings, Menu, Search, MoreVertical, Bot, User, Sparkles, Moon, Sun } from 'lucide-react';
+import { Send, Settings, MoreVertical, Bot, User, Moon, Sun } from 'lucide-react';
 import { Droplet } from 'lucide-react';
 
 const FullScreenChatbot = () => {
@@ -11,7 +11,6 @@ const FullScreenChatbot = () => {
       content: "Namaste! What do you need Rainfall recharge or Ground water replenish rate or anything else I can help you with that?",
       timestamp: new Date(Date.now() - 300000)
     },
-
   ]);
 
   const [inputValue, setInputValue] = useState('');
@@ -80,7 +79,7 @@ const FullScreenChatbot = () => {
   };
 
   const TypingIndicator = () => (
-    <div className={`flex justify-start mb-6 animate-in slide-in-from-bottom-2 duration-300`}>
+    <div className="flex justify-start mb-6 transition-all duration-300">
       <div className="flex items-end space-x-3 max-w-xs lg:max-w-2xl">
         <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
           <Bot size={18} className="text-white" />
@@ -105,7 +104,7 @@ const FullScreenChatbot = () => {
   );
 
   const MessageBubble = ({ message }) => (
-    <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} mb-6 animate-in slide-in-from-bottom-2 duration-300`}>
+    <div className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} mb-6 transition-all duration-300`}>
       <div className={`flex items-end space-x-3 max-w-xs lg:max-w-2xl ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
         <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${message.type === 'user'
           ? 'bg-gradient-to-br from-emerald-500 to-teal-600'
@@ -146,7 +145,6 @@ const FullScreenChatbot = () => {
             <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
               JAL SUCHAK
             </h1>
-
           </div>
         </div>
 
@@ -216,7 +214,6 @@ const FullScreenChatbot = () => {
               <Send size={20} />
             </button>
           </div>
-
         </div>
       </div>
     </div>
