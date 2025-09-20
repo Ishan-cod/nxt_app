@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-
 import React from "react";
 import { useState } from "react";
 import { Scrollable_MSG_AREA } from "./bot_component/ScrollMessageArea";
@@ -10,6 +9,7 @@ import { Mic } from "lucide-react";
 import { SendIcon } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { Navbar } from "./bot_component/Header";
+
 
 export default function Page() {
   const [MessageArray, setMessageArray] = useState([]);
@@ -23,19 +23,20 @@ export default function Page() {
     try {
       const messageToSend = input;
       setinput("");
-      const humanres = { sender: "human", response: input };
+      const humanres = { role: "human", content: input };
       setMessageArray((prev) => [...prev, humanres]);
 
-      const response = await axios.post("/api/chat", {
-        user_query: messageToSend,
-        history_chat: MessageArray,
+      const response = await axios.post("/api/bot_datafetcher", {
+        query: messageToSend,
+        chat_history: MessageArray,
       });
       setisloading(false);
       //   console.log(MessageArray);
-      const airesponse = response.data.ai_answer;
+      const airesponse = response.data.data.response.output;
 
-      const airesponsed = { sender: "ai", response: airesponse };
+      const airesponsed = { role: "ai", content: airesponse };
       setMessageArray((prev) => [...prev, airesponsed]);
+      console.log(chat_history)
     } catch (error) {
       setisloading(false);
       console.error("Error sending message:", error);
@@ -77,10 +78,10 @@ export default function Page() {
             ) : (
               <Scrollable_MSG_AREA>
                 {MessageArray.map((msgObj, i) =>
-                  msgObj.sender === "ai" ? (
-                    <AI_Message key={i} message={msgObj.response} />
+                  msgObj.role === "ai" ? (
+                    <AI_Message key={i} message={msgObj.content} />
                   ) : (
-                    <Human_message key={i} message={msgObj.response} />
+                    <Human_message key={i} message={msgObj.content} />
                   )
                 )}
               </Scrollable_MSG_AREA>
